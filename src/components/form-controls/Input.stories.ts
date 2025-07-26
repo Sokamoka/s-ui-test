@@ -5,7 +5,7 @@ import Input from "./Input.vue";
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 export default {
   title: "FormControls/Input",
-  component: Input,
+  // component: Input,
   tags: ["autodocs"],
   argTypes: {
     type: {
@@ -14,15 +14,22 @@ export default {
     },
     backgroundColor: { control: "color" },
   },
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { onClick: fn() },
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary = {
+  render: (args) => ({
+    components: { Input },
+    setup() {
+      return { args };
+    },
+    template:
+      '<div style="display: grid; width: 300px;"><Input v-bind="args" /></div>',
+  }),
   args: {
     type: "text",
     hasError: false,
+    isValid: false,
     disabled: false,
     label: "Default Label",
     icon: "",

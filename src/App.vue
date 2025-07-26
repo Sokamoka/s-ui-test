@@ -25,6 +25,7 @@ const showPassword = ref(false);
       placeholder="Placeholder very very very very long text"
       icon="radix-icons:link-1"
       append-icon="radix-icons:discord-logo"
+      hasError
     />
   </fieldset>
 

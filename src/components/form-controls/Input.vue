@@ -15,14 +15,21 @@
     <label :for="idInt" v-text="label || placeholder" />
     <div v-if="$slots.prepend || icon" class="is-prepend">
       <slot name="prepend">
-        <Icon :icon="icon" class="is-icon" width="20" height="20" />
+        <Icon :icon="icon" class="is-icon" width="24" height="24" />
       </slot>
     </div>
     <div v-if="$slots.append || appendIcon" class="is-append">
       <slot name="append">
-        <Icon :icon="appendIcon" class="is-icon" width="20" height="20" />
+        <Icon :icon="appendIcon" class="is-icon" width="24" height="24" />
       </slot>
     </div>
+    <Icon
+      v-if="isValid"
+      icon="mdi:check-bold"
+      class="is-valid-icon"
+      width="24"
+      height="24"
+    />
   </div>
 </template>
 
@@ -41,6 +48,7 @@ const props = withDefaults(
     placeholder?: string;
     suggestion?: string;
     hasError?: boolean;
+    isValid?: boolean;
     disabled?: boolean;
     icon?: string;
     appendIcon?: string;
@@ -68,6 +76,12 @@ const mainClasses = computed(() => [
 </script>
 
 <style lang="scss" scoped>
+@media (pointer: coarse) {
+  .s-input {
+    --s-input-transition: none;
+  }
+}
+
 .s-input {
   --input-padding-start: 1rem;
   --input-padding-end: 1rem;
@@ -189,6 +203,11 @@ const mainClasses = computed(() => [
       line-height: 1.5rem;
       font-size: var(--s-input-base-font-size);
     }
+
+    .is-suggestion-text {
+      --s-input-padding-block-start: 1rem;
+      --s-input-padding-block-end: 1rem;
+    }
   }
 
   .s-input-input:placeholder-shown:not(:focus-visible) + label {
@@ -203,6 +222,51 @@ const mainClasses = computed(() => [
     color: var(--s-input-disabled-color);
   }
 
+  .is-valid-icon {
+    position: absolute;
+    inset-inline-end: 1rem;
+    inset-block-start: 1rem;
+    color: #277c5a;
+    animation: scale-in 650ms
+      linear(
+        0,
+        0.009,
+        0.035 2.1%,
+        0.141,
+        0.281 6.7%,
+        0.723 12.9%,
+        0.938 16.7%,
+        1.017,
+        1.077,
+        1.121,
+        1.149 24.3%,
+        1.159,
+        1.163,
+        1.161,
+        1.154 29.9%,
+        1.129 32.8%,
+        1.051 39.6%,
+        1.017 43.1%,
+        0.991,
+        0.977 51%,
+        0.974 53.8%,
+        0.975 57.1%,
+        0.997 69.8%,
+        1.003 76.9%,
+        1.004 83.8%,
+        1
+      );
+  }
+
+  &:has(.is-valid-icon):has(.is-append) {
+    .is-valid-icon {
+      inset-inline-end: 3rem;
+    }
+    .s-input-input {
+      --input-padding-end: 5rem;
+    }
+  }
+
   &:has(.is-prepend) {
     label,
     .is-suggestion-text,
@@ -211,6 +275,7 @@ const mainClasses = computed(() => [
     }
   }
 
+  &:has(.is-valid-icon),
   &:has(.is-append) {
     label,
     .is-suggestion-text,
@@ -224,10 +289,19 @@ const mainClasses = computed(() => [
     inset-block: 0;
     display: flex;
     align-items: center;
+    color: var(--s-input-color);
 
     &:has(.is-icon) {
       pointer-events: none;
     }
+  }
+
+  .s-input-input[aria-invalid="true"] ~ :is(.is-prepend, .is-append) {
+    color: var(--s-input-error-border-color);
+  }
+
+  .s-input-input:disabled ~ :is(.is-prepend, .is-append, .is-valid-icon) {
+    opacity: 0.3;
   }
 
   .is-prepend {
@@ -240,9 +314,13 @@ const mainClasses = computed(() => [
     padding-inline-end: 1rem;
   }
 
-  &.is-compact {
-    label {
-      opacity: 0;
+  @keyframes scale-in {
+    from {
+      scale: 0;
+    }
+
+    to {
+      scale: 100%;
     }
   }
 }
