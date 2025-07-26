@@ -1,5 +1,5 @@
 <template>
-  <div class="s-input">
+  <div :class="mainClasses">
     <div v-if="suggestion" class="is-suggestion-text" v-html="suggestion" />
     <slot name="input">
       <input
@@ -8,6 +8,7 @@
         :type="type"
         placeholder=" "
         :aria-invalid="hasError"
+        :disabled="disabled"
         v-bind="$attrs"
       />
     </slot>
@@ -40,9 +41,11 @@ const props = withDefaults(
     placeholder?: string;
     suggestion?: string;
     hasError?: boolean;
+    disabled?: boolean;
     icon?: string;
     appendIcon?: string;
     externalId?: string;
+    compact?: boolean;
   }>(),
   {
     type: "text",
@@ -57,6 +60,11 @@ const props = withDefaults(
 
 const id = useId();
 const idInt = computed(() => props.externalId || id);
+
+const mainClasses = computed(() => [
+  "s-input",
+  { "s-input-compact": props.compact },
+]);
 </script>
 
 <style lang="scss" scoped>
@@ -168,11 +176,27 @@ const idInt = computed(() => props.externalId || id);
     pointer-events: none;
   }
 
+  &.s-input-compact {
+    .s-input-input {
+      --s-input-padding-block-start: 1rem;
+      --s-input-padding-block-end: 1rem;
+    }
+
+    label {
+      padding-block-start: 1rem;
+      opacity: 0;
+      font-weight: 400;
+      line-height: 1.5rem;
+      font-size: var(--s-input-base-font-size);
+    }
+  }
+
   .s-input-input:placeholder-shown:not(:focus-visible) + label {
     font-weight: 400;
     padding-block-start: var(--s-input-padding-inline);
     font-size: var(--s-input-base-font-size);
     line-height: 1.5rem;
+    opacity: 1;
   }
 
   .s-input-input:disabled + label {
@@ -180,18 +204,16 @@ const idInt = computed(() => props.externalId || id);
   }
 
   &:has(.is-prepend) {
-    :slotted(button),
-    .is-suggestion-text,
     label,
+    .is-suggestion-text,
     .s-input-input {
       --input-padding-start: 3rem;
     }
   }
 
   &:has(.is-append) {
-    :slotted(button),
-    .is-suggestion-text,
     label,
+    .is-suggestion-text,
     .s-input-input {
       --input-padding-end: 3rem;
     }
@@ -216,6 +238,12 @@ const idInt = computed(() => props.externalId || id);
   .is-append {
     inset-inline-end: 0;
     padding-inline-end: 1rem;
+  }
+
+  &.is-compact {
+    label {
+      opacity: 0;
+    }
   }
 }
 </style>

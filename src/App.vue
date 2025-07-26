@@ -66,4 +66,16 @@ const showPassword = ref(false);
       <Autocomplete label="Label" />
     </FormField>
   </fieldset>
+
+  <fieldset>
+    <legend>Compact with label</legend>
+
+    <FormField
+      label="Compact with label"
+      help="Please add e-mail address"
+      errorLabel="Email is invalid"
+    >
+      <Input label="Label" compact />
+    </FormField>
+  </fieldset>
 </template>

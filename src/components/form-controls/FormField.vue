@@ -3,6 +3,7 @@ import { Icon } from "@iconify/vue";
 
 withDefaults(
   defineProps<{
+    label: string;
     hasError?: boolean;
     errorLabel?: string;
     help?: string;
@@ -15,6 +16,7 @@ withDefaults(
 
 <template>
   <div>
+    <div v-if="label" class="is-label">{{ label }}</div>
     <slot />
     <div v-if="help && !hasError" class="is-help">{{ help }}</div>
     <div v-if="hasError" class="is-error">
@@ -25,6 +27,11 @@ withDefaults(
 </template>
 
 <style lang="scss" scoped>
+.is-label {
+  padding: 0.25rem;
+  font-weight: 700;
+}
+
 .is-help {
   padding: 0.25rem;
   font-size: 0.875rem;
