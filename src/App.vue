@@ -5,6 +5,7 @@ import Input from "./components/form-controls/Input.vue";
 import Select from "./components/form-controls/Select.vue";
 import FormField from "./components/form-controls/FormField.vue";
 import Autocomplete from "./components/form-controls/Autocomplete.vue";
+import InputGroup from "./components/form-controls/InputGroup.vue";
 
 const options = ["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"];
 
@@ -27,6 +28,26 @@ const showPassword = ref(false);
       append-icon="radix-icons:discord-logo"
       hasError
     />
+  </fieldset>
+
+  <fieldset>
+    <legend>Input group</legend>
+    <InputGroup>
+      <Input label="Input 01" />
+      <Input label="Input 02" />
+      <Input label="Input 03" />
+    </InputGroup>
+  </fieldset>
+
+  <fieldset>
+    <legend>Input group</legend>
+    <InputGroup>
+      <FormField>
+        <Input label="Input 01" />
+      </FormField>
+      <Input label="Input 02" />
+      <Input label="Input 03" />
+    </InputGroup>
   </fieldset>
 
   <fieldset>
