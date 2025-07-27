@@ -50,8 +50,8 @@ const options = [
 </script>
 
 <template>
-  <ComboboxRoot class="ComboboxRoot" openOnFocus>
-    <Input label="Test">
+  <ComboboxRoot class="ComboboxRoot" asChild openOnFocus>
+    <Input label="Autocomplete">
       <template #input>
         <ComboboxAnchor asChild>
           <ComboboxInput placeholder=" " class="s-input-input" />

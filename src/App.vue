@@ -6,17 +6,20 @@ import Select from "./components/form-controls/Select.vue";
 import FormField from "./components/form-controls/FormField.vue";
 import Autocomplete from "./components/form-controls/Autocomplete.vue";
 import InputGroup from "./components/form-controls/InputGroup.vue";
+import Badge from "./components/form-controls/Badge.vue";
 
 const options = ["Apple", "Banana", "Blueberry", "Grapes", "Pineapple"];
 
+const model01 = ref("");
 const showPassword = ref(false);
 </script>
 
 <template>
   <fieldset>
     <legend>Base states</legend>
+    <div>Model value: {{ model01 }}</div>
 
-    <Input label="Base Input" />
+    <Input v-model="model01" label="Base Input" autocomplete="off" />
     <Input label="Error state" :has-error="true" />
     <Input label="Disabled" disabled />
   </fieldset>
@@ -31,22 +34,36 @@ const showPassword = ref(false);
   </fieldset>
 
   <fieldset>
-    <legend>Input group</legend>
-    <InputGroup>
-      <Input label="Input 01" />
-      <Input label="Input 02" />
-      <Input label="Input 03" />
+    <legend>Input group horizontal</legend>
+    <InputGroup isHorizontal>
+      <Input label="Input First" />
+      <Input label="Input last" />
+      <Autocomplete label="Autocomplete" />
+      <Select
+        label="Fruits"
+        :options="options"
+        :style="'width: 300px'"
+      ></Select>
     </InputGroup>
   </fieldset>
 
   <fieldset>
     <legend>Input group</legend>
-    <InputGroup>
-      <FormField>
+    <FormField hasError errorLabel="Error">
+      <InputGroup>
         <Input label="Input 01" />
-      </FormField>
+        <Input label="Input 02" hasError />
+        <Input label="Input 03" />
+      </InputGroup>
+    </FormField>
+  </fieldset>
+
+  <fieldset>
+    <legend>Input group with Badge</legend>
+    <InputGroup isHorizontal>
+      <Badge label="HUF" />
       <Input label="Input 02" />
-      <Input label="Input 03" />
+      <Badge label="HUF">Slot</Badge>
     </InputGroup>
   </fieldset>
 
@@ -93,11 +110,11 @@ const showPassword = ref(false);
     <legend>Compact with label</legend>
 
     <FormField
-      label="Compact with label"
+      label="Form Field label"
       help="Please add e-mail address"
       errorLabel="Email is invalid"
     >
-      <Input label="Label" compact />
+      <Input placeholder="Placeholder" compact />
     </FormField>
   </fieldset>
 </template>

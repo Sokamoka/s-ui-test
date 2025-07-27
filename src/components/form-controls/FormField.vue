@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { Icon } from "@iconify/vue";
+import { useFormFieldProvider } from "../../composables/use-form-field";
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
-    label: string;
+    label?: string;
     hasError?: boolean;
     errorLabel?: string;
     help?: string;
@@ -12,6 +14,8 @@ withDefaults(
     hasError: false, // Nem is kell
   }
 );
+
+useFormFieldProvider(computed(() => props.hasError));
 </script>
 
 <template>

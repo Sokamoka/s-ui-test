@@ -1,41 +1,7 @@
-<template>
-  <div :class="mainClasses">
-    <div v-if="suggestion" class="is-suggestion-text" v-html="suggestion" />
-    <slot name="input">
-      <input
-        :id="idInt"
-        class="s-input-input"
-        :type="type"
-        placeholder=" "
-        :aria-invalid="hasError"
-        :disabled="disabled"
-        v-bind="$attrs"
-      />
-    </slot>
-    <label :for="idInt" v-text="label || placeholder" />
-    <div v-if="$slots.prepend || icon" class="is-prepend">
-      <slot name="prepend">
-        <Icon :icon="icon" class="is-icon" width="24" height="24" />
-      </slot>
-    </div>
-    <div v-if="$slots.append || appendIcon" class="is-append">
-      <slot name="append">
-        <Icon :icon="appendIcon" class="is-icon" width="24" height="24" />
-      </slot>
-    </div>
-    <Icon
-      v-if="isValid"
-      icon="mdi:check-bold"
-      class="is-valid-icon"
-      width="24"
-      height="24"
-    />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import { computed, useId } from "vue";
+import { useFormField } from "../../composables/use-form-field";
 
 defineOptions({
   inheritAttrs: false,
@@ -66,6 +32,8 @@ const props = withDefaults(
   }
 );
 
+const model = defineModel({ type: String });
+
 const id = useId();
 const idInt = computed(() => props.externalId || id);
 
@@ -73,7 +41,47 @@ const mainClasses = computed(() => [
   "s-input",
   { "s-input-compact": props.compact },
 ]);
+
+const { hasError: errorFromInputField } = useFormField();
+
+const hasErrorInt = computed(() => props.hasError || errorFromInputField.value);
 </script>
+
+<template>
+  <div :class="mainClasses">
+    <div v-if="suggestion" class="is-suggestion-text" v-html="suggestion" />
+    <slot name="input">
+      <input
+        v-model="model"
+        :id="idInt"
+        class="s-input-input"
+        :type="type"
+        placeholder=" "
+        :aria-invalid="hasErrorInt"
+        :disabled="disabled"
+        v-bind="$attrs"
+      />
+    </slot>
+    <label :for="idInt" v-text="label || placeholder" />
+    <div v-if="$slots.prepend || icon" class="is-prepend">
+      <slot name="prepend">
+        <Icon :icon="icon" class="is-icon" width="24" height="24" />
+      </slot>
+    </div>
+    <div v-if="$slots.append || appendIcon" class="is-append">
+      <slot name="append">
+        <Icon :icon="appendIcon" class="is-icon" width="24" height="24" />
+      </slot>
+    </div>
+    <Icon
+      v-if="isValid"
+      icon="mdi:check-bold"
+      class="is-valid-icon"
+      width="24"
+      height="24"
+    />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 @media (pointer: coarse) {
@@ -190,6 +198,16 @@ const mainClasses = computed(() => [
     pointer-events: none;
   }
 
+  .s-input-input[type="search"]::-webkit-search-cancel-button {
+    inline-size: 20px;
+    block-size: 20px;
+    margin-block-start: -1rem;
+    margin-inline-end: 0;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMCAxMEMyMCAxNS41MjI4IDE1LjUyMjggMjAgMTAgMjBDNC40NzcxNSAyMCAwIDE1LjUyMjggMCAxMEMwIDQuNDc3MTUgNC40NzcxNSAwIDEwIDBDMTUuNTIyOCAwIDIwIDQuNDc3MTUgMjAgMTBaTTEzLjAwNTIgMTQuMDY1OUwxMCAxMS4wNjA3TDYuOTk0ODIgMTQuMDY1OUw1LjkzNDE2IDEzLjAwNTJMOC45MzkzNiAxMEw1LjkzNDE2IDYuOTk0OEw2Ljk5NDgyIDUuOTM0MTRMMTAgOC45MzkzNEwxMy4wMDUyIDUuOTM0MTRMMTQuMDY1OSA2Ljk5NDhMMTEuMDYwNyAxMEwxNC4wNjU5IDEzLjAwNTJMMTMuMDA1MiAxNC4wNjU5WiIgZmlsbD0iIzk5OTk5OSIvPgo8L3N2Zz4K");
+  }
+
   &.s-input-compact {
     .s-input-input {
       --s-input-padding-block-start: 1rem;
@@ -208,6 +226,10 @@ const mainClasses = computed(() => [
       --s-input-padding-block-start: 1rem;
       --s-input-padding-block-end: 1rem;
     }
+
+    .s-input-input[type="search"]::-webkit-search-cancel-button {
+      margin-block-start: 0;
+    }
   }
 
   .s-input-input:placeholder-shown:not(:focus-visible) + label {
@@ -220,6 +242,16 @@ const mainClasses = computed(() => [
 
   .s-input-input:disabled + label {
     color: var(--s-input-disabled-color);
+  }
+
+  // strange hack to prevent autofill background color change
+  // disclaimer: you can't overwrite background color, only add transition,
+  // so it will be change back to the wrong color after 30000s
+  .s-input-input:-webkit-autofill,
+  .s-input-input:-webkit-autofill:hover,
+  .s-input-input:-webkit-autofill:focus,
+  .s-input-input:-webkit-autofill:active {
+    transition: background-color 30000s ease-in-out 0s;
   }
 
   .is-valid-icon {
