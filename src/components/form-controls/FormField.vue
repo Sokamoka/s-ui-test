@@ -37,8 +37,9 @@ useFormFieldProvider(computed(() => props.hasError));
 }
 
 .is-help {
-  padding: 0.25rem;
+  padding: 0.25rem 0.25rem 0.5rem;
   font-size: 0.875rem;
+  line-height: 1rem;
   color: var(--s-input-placeholder-color);
 }
 
@@ -48,6 +49,7 @@ useFormFieldProvider(computed(() => props.hasError));
   align-items: center;
   gap: 0.5rem;
   font-size: 0.875rem;
+  line-height: 1rem;
   font-weight: 700;
   color: var(--s-input-error-border-color);
 }

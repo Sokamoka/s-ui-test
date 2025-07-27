@@ -1,18 +1,18 @@
-import { fn } from "storybook/test";
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import Input from "./Input.vue";
-import InputGroup from "./InputGroup.vue";
 import { ref } from "vue";
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories
-export default {
+const meta = {
   title: "FormControls/Input",
-  // component: Input,
   tags: ["autodocs"],
-};
+  component: Input,
+} satisfies Meta<typeof Input>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Base = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Base: Story = {
   render: (args) => ({
     components: { Input },
     setup() {
