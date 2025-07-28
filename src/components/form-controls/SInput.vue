@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { computed, useId } from "vue";
+import { computed, useId, type InputHTMLAttributes } from "vue";
 import { useFormField } from "../../composables/use-form-field";
 
 defineOptions({
@@ -21,15 +21,13 @@ const props = withDefaults(
     externalId?: string;
     compact?: boolean;
     class?: any;
+    autocomplete?: InputHTMLAttributes["autocomplete"];
   }>(),
   {
     type: "text",
-    label: "",
-    placeholder: "",
-    suggestion: "",
     icon: "",
     appendIcon: "",
-    hasError: false,
+    autocomplete: "off",
   }
 );
 
@@ -56,25 +54,26 @@ const hasErrorInt = computed(() => props.hasError || errorFromInputField.value);
       <input
         v-model="model"
         :id="idInt"
-        class="s-input-input"
         :type="type"
-        placeholder=" "
         :aria-invalid="hasErrorInt"
         :disabled="disabled"
+        :autocomplete="autocomplete"
+        class="s-input-input"
+        placeholder=" "
         v-bind="$attrs"
       />
     </slot>
     <label :for="idInt" v-text="label || placeholder" />
-    <div v-if="$slots.prepend || icon" class="is-prepend">
+    <span v-if="$slots.prepend || icon" class="is-prepend">
       <slot name="prepend">
         <Icon :icon="icon" class="is-icon" width="24" height="24" />
       </slot>
-    </div>
-    <div v-if="$slots.append || appendIcon" class="is-append">
+    </span>
+    <span v-if="$slots.append || appendIcon" class="is-append">
       <slot name="append">
         <Icon :icon="appendIcon" class="is-icon" width="24" height="24" />
       </slot>
-    </div>
+    </span>
     <Icon
       v-if="isValid"
       icon="mdi:check-bold"

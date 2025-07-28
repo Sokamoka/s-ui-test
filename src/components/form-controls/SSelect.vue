@@ -26,13 +26,14 @@ const id = `s-select-${useId()}`;
 const model = defineModel({ type: String });
 
 defineProps<{
+  class: string;
   options: { label: string; value: string | number };
 }>();
 </script>
 
 <template>
   <SelectRoot v-model="model">
-    <Input placeholder="Select" :externalId="id">
+    <Input placeholder="Select" :externalId="id" :class="class">
       <template #input>
         <SelectTrigger
           aria-label="label"

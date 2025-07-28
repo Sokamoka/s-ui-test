@@ -49,10 +49,10 @@ export const Base: Story = {
     <div style="margin: 0 auto; display: grid; max-width: 320px;">
       <SForm style="display: grid; gap: 1rem;" :validator="r$" @submit="submitForm">
         <SFormField name="email">
-          <Input v-model="state.email" label="E-mail" />
+          <Input v-model="state.email" label="E-mail" class="w-full" />
         </SFormField>
         <SFormField name="password">
-          <Input v-model="state.password" label="Password" type="password" />
+          <Input v-model="state.password" label="Password" type="password" class="w-full" />
         </SFormField>
 
         <button type="submit" style="display: inline-flex;">Submit form</button>
