@@ -16,7 +16,7 @@ import {
   SelectValue,
   SelectViewport,
 } from "reka-ui";
-import Input from "./Input.vue";
+import Input from "./SInput.vue";
 
 defineOptions({
   inheritAttrs: false,

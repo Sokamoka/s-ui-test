@@ -1,13 +1,13 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { Icon } from "@iconify/vue";
-import Input from "./components/form-controls/Input.vue";
-import Select from "./components/form-controls/Select.vue";
+import SInput from "./components/form-controls/SInput.vue";
+import SSelect from "./components/form-controls/SSelect.vue";
 import SForm from "./components/form-controls/SForm.vue";
-import FormField from "./components/form-controls/FormField.vue";
-import Autocomplete from "./components/form-controls/Autocomplete.vue";
-import InputGroup from "./components/form-controls/InputGroup.vue";
-import Badge from "./components/form-controls/Badge.vue";
+import SFormField from "./components/form-controls/SFormField.vue";
+import SAutocomplete from "./components/form-controls/SAutocomplete.vue";
+import SInputGroup from "./components/form-controls/SInputGroup.vue";
+import SBadge from "./components/form-controls/SBadge.vue";
 import { useRegle } from "@regle/core";
 import {
   required,
@@ -54,13 +54,13 @@ async function submitForm() {
     <legend>Base states</legend>
     <div>Model value: {{ model01 }}</div>
 
-    <Input v-model="model01" label="Base Input" autocomplete="off" />
-    <Input label="Error state" :has-error="true" />
-    <Input label="Disabled" disabled />
+    <SInput v-model="model01" label="Base Input" autocomplete="off" />
+    <SInput label="Error state" :has-error="true" />
+    <SInput label="Disabled" disabled />
   </fieldset>
 
   <fieldset>
-    <Input
+    <SInput
       placeholder="Placeholder very very very very long text"
       icon="radix-icons:link-1"
       append-icon="radix-icons:discord-logo"
@@ -70,40 +70,40 @@ async function submitForm() {
 
   <fieldset>
     <legend>Input group horizontal</legend>
-    <InputGroup isHorizontal>
-      <Input label="Input First" />
-      <Input label="Input last" />
-      <Autocomplete label="Autocomplete" />
-      <Select
+    <SInputGroup isHorizontal>
+      <SInput label="Input First" />
+      <SInput label="Input last" />
+      <SAutocomplete label="Autocomplete" />
+      <SSelect
         label="Fruits"
         :options="options"
         :style="'width: 300px'"
-      ></Select>
-    </InputGroup>
+      ></SSelect>
+    </SInputGroup>
   </fieldset>
 
   <fieldset>
     <legend>Input group</legend>
-    <FormField hasError errorLabel="Error">
-      <InputGroup>
-        <Input label="Input 01" />
-        <Input label="Input 02" hasError />
-        <Input label="Input 03" />
-      </InputGroup>
-    </FormField>
+    <SFormField hasError errorLabel="Error">
+      <SInputGroup>
+        <SInput label="Input 01" />
+        <SInput label="Input 02" hasError />
+        <SInput label="Input 03" />
+      </SInputGroup>
+    </SFormField>
   </fieldset>
 
   <fieldset>
     <legend>Input group with Badge</legend>
-    <InputGroup isHorizontal>
-      <Badge label="HUF" />
-      <Input label="Input 02" />
-      <Badge label="HUF">Slot</Badge>
-    </InputGroup>
+    <SInputGroup isHorizontal>
+      <SBadge label="HUF" />
+      <SInput label="Input 02" />
+      <SBadge label="HUF">Slot</SBadge>
+    </SInputGroup>
   </fieldset>
 
   <fieldset>
-    <Input label="Append element" :type="showPassword ? 'text' : 'password'">
+    <SInput label="Append element" :type="showPassword ? 'text' : 'password'">
       <template #append>
         <span tabindex="0">
           <Icon
@@ -114,47 +114,51 @@ async function submitForm() {
           />
         </span>
       </template>
-    </Input>
+    </SInput>
   </fieldset>
 
   <fieldset>
-    <Select label="Fruits" :options="options" :style="'width: 300px'"></Select>
+    <SSelect
+      label="Fruits"
+      :options="options"
+      :style="'width: 300px'"
+    ></SSelect>
   </fieldset>
 
   <fieldset>
-    <FormField help="Please add e-mail address" errorLabel="Email is invalid">
-      <Input label="Label" />
-    </FormField>
+    <SFormField help="Please add e-mail address" errorLabel="Email is invalid">
+      <SInput label="Label" />
+    </SFormField>
   </fieldset>
 
   <fieldset>
-    <Autocomplete label="Label" />
+    <SAutocomplete label="Label" />
   </fieldset>
 
   <fieldset>
-    <FormField
+    <SFormField
       help="Please add e-mail address"
       hasError
       errorLabel="Email is invalid"
     >
-      <Autocomplete label="Label" />
-    </FormField>
+      <SAutocomplete label="Label" />
+    </SFormField>
   </fieldset>
 
   <fieldset>
     <legend>Compact with label</legend>
 
-    <FormField
+    <SFormField
       label="Form Field label"
       help="Please add e-mail address"
       errorLabel="Email is invalid"
     >
-      <Input placeholder="Placeholder" compact />
-    </FormField>
+      <SInput placeholder="Placeholder" compact />
+    </SFormField>
   </fieldset>
 
   <fieldset>
-    <legend>Forml</legend>
+    <legend>Form</legend>
 
     <div style="margin: 0 auto; display: grid; max-width: 320px">
       <SForm
@@ -162,15 +166,26 @@ async function submitForm() {
         :validator="r$"
         @submit="submitForm"
       >
-        <FormField name="email">
-          <Input v-model="state.email" label="E-mail" />
-        </FormField>
-        <FormField name="password">
-          <Input v-model="state.password" label="Password" type="password" />
-        </FormField>
+        <SFormField name="email">
+          <SInput v-model="state.email" label="E-mail" class="w-full" />
+        </SFormField>
+        <SFormField name="password">
+          <SInput
+            v-model="state.password"
+            label="Password"
+            type="password"
+            class="w-full"
+          />
+        </SFormField>
 
         <button type="submit" style="display: inline-flex">Submit form</button>
       </SForm>
     </div>
   </fieldset>
 </template>
+
+<style>
+.w-full {
+  width: 100%;
+}
+</style>

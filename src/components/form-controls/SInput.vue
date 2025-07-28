@@ -20,6 +20,7 @@ const props = withDefaults(
     appendIcon?: string;
     externalId?: string;
     compact?: boolean;
+    class?: any;
   }>(),
   {
     type: "text",
@@ -39,6 +40,7 @@ const idInt = computed(() => props.externalId || id);
 
 const mainClasses = computed(() => [
   "s-input",
+  [props.class],
   { "s-input-compact": props.compact },
 ]);
 

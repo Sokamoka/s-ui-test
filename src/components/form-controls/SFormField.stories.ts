@@ -1,25 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import Input from "./Input.vue";
-import FormField from "./FormField.vue";
+import SInput from "./SInput.vue";
+import SFormField from "./SFormField.vue";
 
 const meta = {
   title: "Form Controls/FormField",
   tags: ["autodocs"],
-  component: FormField,
-} satisfies Meta<typeof FormField>;
+  component: SFormField,
+} satisfies Meta<typeof SFormField>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {
   render: (args) => ({
-    components: { Input, FormField },
+    components: { SInput, SFormField },
     setup() {
       return { args };
     },
-    template: `<FormField v-bind="args" >
-        <Input label="First" autocomplete="off" />
-      </FormField>`,
+    template: `<SFormField v-bind="args" >
+        <SInput label="First" autocomplete="off" />
+      </SFormField>`,
   }),
   args: {
     label: "",

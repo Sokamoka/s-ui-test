@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
-import Input from "./Input.vue";
-import SFormField from "./FormField.vue";
+import Input from "./SInput.vue";
+import SFormField from "./SFormField.vue";
 import SForm from "./SForm.vue";
 
 import { useRegle } from "@regle/core";

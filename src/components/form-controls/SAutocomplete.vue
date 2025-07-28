@@ -15,7 +15,7 @@ import {
   // ComboboxTrigger,
   ComboboxViewport,
 } from "reka-ui";
-import Input from "./Input.vue";
+import Input from "./SInput.vue";
 
 // const id = `s-sutocomplete-${useId()}`;
 
