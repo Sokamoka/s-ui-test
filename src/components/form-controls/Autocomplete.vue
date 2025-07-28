@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useId } from "vue";
+// import { useId } from "vue";
 import { Icon } from "@iconify/vue";
 import {
   ComboboxAnchor,
@@ -17,7 +17,7 @@ import {
 } from "reka-ui";
 import Input from "./Input.vue";
 
-const id = `s-sutocomplete-${useId()}`;
+// const id = `s-sutocomplete-${useId()}`;
 
 const options = [
   {

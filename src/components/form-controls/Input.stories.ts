@@ -4,7 +4,7 @@ import Input from "./Input.vue";
 import { ref } from "vue";
 
 const meta = {
-  title: "FormControls/Input",
+  title: "Form Controls/Input",
   tags: ["autodocs"],
   component: Input,
 } satisfies Meta<typeof Input>;
@@ -20,7 +20,7 @@ export const Base: Story = {
       return { args, currentModel };
     },
     template: `<div style="display: grid; width: 300px;">
-        <div>Current value: {{ currentModel }}</div>
+        <div style="padding-block: 0.5rem">Current value: {{ currentModel }}</div>
         <Input v-model="currentModel" v-bind="args" />
       </div>`,
   }),

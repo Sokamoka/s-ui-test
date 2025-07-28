@@ -100,6 +100,7 @@ const hasErrorInt = computed(() => props.hasError || errorFromInputField.value);
 
   position: relative;
   display: inline-flex;
+  align-items: center;
 
   .is-suggestion-text {
     position: absolute;

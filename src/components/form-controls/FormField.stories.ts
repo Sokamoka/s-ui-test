@@ -1,12 +1,17 @@
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import Input from "./Input.vue";
 import FormField from "./FormField.vue";
 
-export default {
-  title: "FormControls/FormField",
+const meta = {
+  title: "Form Controls/FormField",
   tags: ["autodocs"],
-};
+  component: FormField,
+} satisfies Meta<typeof FormField>;
 
-export const Base = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Base: Story = {
   render: (args) => ({
     components: { Input, FormField },
     setup() {
