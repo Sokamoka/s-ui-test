@@ -11,5 +11,5 @@ export function useFormFieldProvider(hasError: Ref<boolean>) {
 export function useFormField() {
   const api = inject(useFormFieldContext, null);
 
-  return { hasError: api?.hasError ?? ref<false>(false) };
+  return { hasError: api?.hasError ?? ref(false) };
 }

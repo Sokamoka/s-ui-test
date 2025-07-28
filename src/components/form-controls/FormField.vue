@@ -2,9 +2,11 @@
 import { computed } from "vue";
 import { Icon } from "@iconify/vue";
 import { useFormFieldProvider } from "../../composables/use-form-field";
+import { useForm } from "../../composables/use-form";
 
 const props = withDefaults(
   defineProps<{
+    name?: string;
     label?: string;
     hasError?: boolean;
     errorLabel?: string;
@@ -15,17 +17,22 @@ const props = withDefaults(
   }
 );
 
-useFormFieldProvider(computed(() => props.hasError));
+const { hasError, errorMessage } = useForm(props.name || "");
+
+const hasErrorInt = computed(() => props.hasError || hasError.value);
+const errorMessageInt = computed(() => props.errorLabel || errorMessage.value);
+
+useFormFieldProvider(hasErrorInt);
 </script>
 
 <template>
   <div>
     <div v-if="label" class="is-label">{{ label }}</div>
     <slot />
-    <div v-if="help && !hasError" class="is-help">{{ help }}</div>
-    <div v-if="hasError" class="is-error">
+    <div v-if="help && !hasErrorInt" class="is-help">{{ help }}</div>
+    <div v-if="hasErrorInt" class="is-error">
       <Icon icon="ic:round-warning" width="20" />
-      {{ errorLabel }}
+      {{ errorMessageInt }}
     </div>
   </div>
 </template>

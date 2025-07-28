@@ -1,11 +1,18 @@
 <script setup lang="ts">
-defineProps<{
+import { toRefs } from "vue";
+import { useFormProvider } from "../../composables/use-form";
+
+const props = defineProps<{
   validator: unknown;
 }>();
 
 const emit = defineEmits<{
   submit: [];
 }>();
+
+const { validator } = toRefs(props);
+
+useFormProvider(validator);
 </script>
 
 <template>
@@ -13,5 +20,3 @@ const emit = defineEmits<{
     <slot />
   </form>
 </template>
-
-<!-- <style scoped></style> -->
