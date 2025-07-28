@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@regle/core':
+        specifier: ^1.6.1
+        version: 1.6.1(vue@3.5.18(typescript@5.8.3))
+      '@regle/rules':
+        specifier: ^1.6.1
+        version: 1.6.1(vue@3.5.18(typescript@5.8.3))
       reka-ui:
         specifier: ^2.4.0
         version: 2.4.0(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
@@ -335,6 +341,18 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@regle/core@1.6.1':
+    resolution: {integrity: sha512-KFRmvgpN0yab3V438gG4fVheYb5C+Gf6/8/pOv0XmjP12W8vHKUbzWzJzlqv9A6kkgHQVFpQjc/VQMuniO7uZw==}
+    peerDependencies:
+      pinia: '>=2.2.5'
+      vue: '>=3.3.0'
+    peerDependenciesMeta:
+      pinia:
+        optional: true
+
+  '@regle/rules@1.6.1':
+    resolution: {integrity: sha512-VyIMW00twwT5kQXy64+A1JrPv2Xg1XJ6lS9hC60/tXe0sB2cSVijc5O5HeQgrHxuQCfBXHI8QOcH0oZlrt03Zg==}
 
   '@rolldown/pluginutils@1.0.0-beta.19':
     resolution: {integrity: sha512-3FL3mnMbPu0muGOCaKAhhFEYmqv9eTfPSJRJmANrCwtgK8VuxpsZDGK+m0LYAGoyO8+0j5uRe4PeyPDK1yA/hA==}
@@ -1926,6 +1944,17 @@ snapshots:
     optional: true
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@regle/core@1.6.1(vue@3.5.18(typescript@5.8.3))':
+    dependencies:
+      vue: 3.5.18(typescript@5.8.3)
+
+  '@regle/rules@1.6.1(vue@3.5.18(typescript@5.8.3))':
+    dependencies:
+      '@regle/core': 1.6.1(vue@3.5.18(typescript@5.8.3))
+    transitivePeerDependencies:
+      - pinia
+      - vue
 
   '@rolldown/pluginutils@1.0.0-beta.19': {}
 
