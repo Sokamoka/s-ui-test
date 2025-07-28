@@ -11,7 +11,7 @@ import { reactive } from "vue";
 const meta = {
   title: "Form Controls/Form",
   tags: ["autodocs"],
-  component: SForm,
+  // component: SForm,
 } satisfies Meta<typeof SForm>;
 
 export default meta;
